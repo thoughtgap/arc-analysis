@@ -1,0 +1,51 @@
+<div *ngIf="localData">
+  {{localData.length}} Timeline Items in total
+
+  <table border="1">
+    <tr>
+        <th>startDate</th>
+        <th>endDate</th>
+        <th>duration</th>
+        <th>center.longitude</th>
+        <th>center.latitude</th>
+        <th>radius</th>
+        <th>placeCenter.longitude</th>
+        <th>placeCenter.latitude</th>
+        <th>distance</th>
+        <th>bearing</th>
+        <th>streetAddress</th>
+        <th>isVisit</th>
+      </tr>
+    <tr *ngFor="let timelineItem of localData">
+      <td>{{timelineItem.startDate | date : "medium"}}</td>
+      <td>{{timelineItem.endDate}}</td>
+      <td>{{timelineItem.duration}}</td>
+      <td><span *ngIf="timelineItem.center">{{timelineItem.center.longitude}}</span></td>
+      <td><span *ngIf="timelineItem.center">{{timelineItem.center.latitude}}</span></td>
+      <td>{{timelineItem.radius}}</td>
+      <td><span *ngIf="timelineItem.placeCenter">{{timelineItem.placeCenter.longitude}}</span></td>
+      <td><span *ngIf="timelineItem.placeCenter">{{timelineItem.placeCenter.latitude}}</span></td>
+      <td>{{timelineItem.distance}}</td>
+      <td>{{timelineItem.bearing}}</td>
+      <td>{{timelineItem.streetAddress}}</td>
+      <td>{{timelineItem.isVisit}}</td>
+    </tr>
+  </table>
+</div>
+
+<h2>{{test.name | uppercase}} Details</h2>
+<div><span>id: </span>{{test.id}}</div>
+<div><span>name: </span>{{test.name}}</div>
+
+<label>name:
+  <input [(ngModel)]="test.name" placeholder="name" />
+</label>
+
+<h2>My Heroes</h2>
+<ul class="heroes">
+  <li *ngFor="let hero of heroes" [class.selected]="hero === selectedTimelineItem">
+    <a [routerLink]="" (click)="onSelect(hero)">{{hero.id}} {{hero.name}}</a>
+  </li>
+</ul>
+
+<app-timeline-item-detail [timelineItem]="selectedTimelineItem"></app-timeline-item-detail>

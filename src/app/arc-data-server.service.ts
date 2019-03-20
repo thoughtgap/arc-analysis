@@ -12,15 +12,18 @@ import { filterObj } from './ArcTimelineFilter';
 })
 export class ArcDataServerService {
   //private heroesUrl = 'http://localhost:3000/heroes';  // URL to web api
-  public baseUrlStd = 'http://localhost:3000/';
-  public baseUrl = 'http://localhost:3000/';
-  private filter: filterObj;
+  public baseUrlStd = 'http://localhost:3000';
+  public baseUrl = 'http://localhost:3000';
+  public filter: filterObj;
 
   constructor(
     private http: HttpClient,
     private messageService: MessageService) {
+    
       console.log("Service constructor!");
-    }
+      this.filter = {};
+  }
+
 
   public resetBaseUrl() {
     console.log("Base URL reset");
@@ -28,12 +31,12 @@ export class ArcDataServerService {
   }
 
   public setBaseUrl(baseUrl: string) {
-    console.log("Base URL set "+baseUrl);
+    console.log("Base URL set " + baseUrl);
     this.baseUrl = baseUrl;
   }
 
   public getBaseUrl() {
-    console.log("Base URL get "+this.baseUrl);
+    console.log("Base URL get " + this.baseUrl);
     return this.baseUrl;
   }
 
@@ -48,17 +51,37 @@ export class ArcDataServerService {
   // }
 
   getTimelineItemsNew(): Observable<ArcTimelineItem[]> {
-    this.filter = {
-      "weekday": ["Mo"],
-      "activityType":["cycling"]
-    };
+    // this.filter = {
+    //   "weekday": ["Mo"],
+    //   "activityType":["cycling"]
+    // };
 
-    return this.http.get<ArcTimelineItem[]>(`${this.baseUrl}timelineItems/list`, { params: this.filter })
+    return this.http.get<ArcTimelineItem[]>(`${this.baseUrl}/timelineItems/list`, { params: this.filter })
       .pipe(
         tap(_ => this.log('fetched TimelineItems')),
-        catchError(this.handleError<ArcTimelineItem[]>('getHeroes', []))
+        catchError(this.handleError<ArcTimelineItem[]>('getTimelineItemsNew()', []))
       );
   }
+
+
+
+  getActivityTypes(): Observable<string[]> {
+    // this.filter = {
+    //   "weekday": ["Mo"],
+    //   "activityType":["cycling"]
+    // };
+    return this.http.get<ArcTimelineItem[]>(`${this.baseUrl}/activities/types`, { params: this.filter })
+      .pipe(
+        tap(_ => this.log('getActivityTypes()')),
+        catchError(this.handleError<ArcTimelineItem[]>('getActivityTypes()', []))
+      );
+  }
+
+
+
+
+
+
 
   // getTimelineItem(id: number): Observable<ArcTimelineItem> {
   //   // TODO: send the message _after_ fetching the heroes

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TimelineItem } from '../TimelineItem';
-import { TimelineItemListService } from '../timeline-item-list.service'
-import { MessageService } from '../message.service';
+import { ArcTimelineItem } from '../ArcTimelineItem';
  
 @Component({
   selector: 'app-dashboard',
@@ -9,16 +7,14 @@ import { MessageService } from '../message.service';
   styleUrls: [ './dashboard.component.scss' ]
 })
 export class DashboardComponent implements OnInit {
-  heroes: TimelineItem[] = [];
+  heroes: ArcTimelineItem[] = [];
+  baseUrl: string;
  
-  constructor(private heroService: TimelineItemListService) { }
+  constructor() { }
  
   ngOnInit() {
-    this.getHeroes();
+
   }
  
-  getHeroes(): void {
-    this.heroService.getTimelineItems()
-      .subscribe(heroes => this.heroes = heroes.slice(1, 5));
-  }
+
 }

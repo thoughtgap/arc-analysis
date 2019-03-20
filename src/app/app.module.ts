@@ -9,6 +9,7 @@ import { TimelineItemDetailComponent } from './timeline-item-detail/timeline-ite
 import { MessagesComponent } from './messages/messages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule }    from '@angular/common/http';
+import { ConfigComponent } from './config/config.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { HttpClientModule }    from '@angular/common/http';
     TimelineItemsListComponent,
     TimelineItemDetailComponent,
     MessagesComponent,
-    DashboardComponent
+    DashboardComponent,
+    ConfigComponent
   ],
   imports: [
     BrowserModule,

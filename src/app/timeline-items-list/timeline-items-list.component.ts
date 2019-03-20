@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TimelineItem } from '../TimelineItem';
-import { TimelineItemListService } from '../timeline-item-list.service'
+import { ArcTimelineItem } from '../ArcTimelineItem';
+import { ArcDataServerService } from '../arc-data-server.service'
 import { MessageService } from '../message.service';
 
 @Component({
@@ -9,33 +9,23 @@ import { MessageService } from '../message.service';
   styleUrls: ['./timeline-items-list.component.scss']
 })
 export class TimelineItemsListComponent implements OnInit {
-  constructor(private timelineItemListService: TimelineItemListService, private messageService: MessageService) { }
+  constructor(private timelineItemListService: ArcDataServerService, private messageService: MessageService) { }
 
   
-  test: TimelineItem = {
-    id: 1,
-    name: "lala"
-  };
-
   //heroes = TLITEMS;
-  heroes: TimelineItem[];
-  public localData
+  heroes: ArcTimelineItem[];
+  public localData: ArcTimelineItem[];
 
-  // tlItem: TimelineItem = {
-  //   id: 1,
-  //   name: "lalala"
-  // }
-
-  selectedTimelineItem: TimelineItem;
-  onSelect(tlItem: TimelineItem): void {
+  selectedTimelineItem: ArcTimelineItem;
+  onSelect(tlItem: ArcTimelineItem): void {
     this.messageService.add('Selected an entry');
     this.selectedTimelineItem = tlItem;
   }
 
-  getTimelineItems(): void {
-    this.timelineItemListService.getTimelineItems()
-        .subscribe(heroes => this.heroes = heroes);
-  }
+  // getTimelineItems(): void {
+  //   this.timelineItemListService.getTimelineItems()
+  //       .subscribe(heroes => this.heroes = heroes);
+  // }
 
   getTimelineItemsNew(): void {
     this.timelineItemListService.getTimelineItemsNew()
@@ -43,7 +33,6 @@ export class TimelineItemsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getTimelineItems();
     this.getTimelineItemsNew();
   }
 

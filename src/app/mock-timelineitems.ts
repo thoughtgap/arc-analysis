@@ -1,6 +1,6 @@
-import { TimelineItem } from './TimelineItem';
+import { ArcTimelineItem } from './ArcTimelineItem';
 
-export const TLITEMS: TimelineItem[] = [
+export const TLITEMS: ArcTimelineItem[] = [
   { id: 11, name: 'Mr. Nice' },
   { id: 12, name: 'Narco' },
   { id: 13, name: 'Bombasto' },

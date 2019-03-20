@@ -6,6 +6,7 @@
         <th>startDate</th>
         <th>endDate</th>
         <th>duration</th>
+        <th>activityType</th>
         <th>center.longitude</th>
         <th>center.latitude</th>
         <th>radius</th>
@@ -20,6 +21,7 @@
       <td>{{timelineItem.startDate | date : "medium"}}</td>
       <td>{{timelineItem.endDate}}</td>
       <td>{{timelineItem.duration}}</td>
+      <td>{{timelineItem.activityType}}</td>
       <td><span *ngIf="timelineItem.center">{{timelineItem.center.longitude}}</span></td>
       <td><span *ngIf="timelineItem.center">{{timelineItem.center.latitude}}</span></td>
       <td>{{timelineItem.radius}}</td>
@@ -33,7 +35,7 @@
   </table>
 </div>
 
-<h2>{{test.name | uppercase}} Details</h2>
+<!-- <h2>{{test.name | uppercase}} Details</h2>
 <div><span>id: </span>{{test.id}}</div>
 <div><span>name: </span>{{test.name}}</div>
 
@@ -48,4 +50,4 @@
   </li>
 </ul>
 
-<app-timeline-item-detail [timelineItem]="selectedTimelineItem"></app-timeline-item-detail>
+<app-timeline-item-detail [timelineItem]="selectedTimelineItem"></app-timeline-item-detail> -->

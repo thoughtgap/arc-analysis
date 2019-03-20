@@ -1,6 +1,4 @@
-export class TimelineItem {
-  id?: number;
-  name?: string;
+export class ArcTimelineItem {
   startDate?;
   endDate?;
   duration?;

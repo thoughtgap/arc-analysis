@@ -26,12 +26,12 @@ export class TimelineItemDetailComponent implements OnInit {
   }
   
   getTimelineItem(): void {
-    // Get ID from URL
-    const id = +this.route.snapshot.paramMap.get('id');
+    // // Get ID from URL
+    // const id = +this.route.snapshot.paramMap.get('id');
 
-    // Get Item through Service
-    this.timelineItemListService.getTimelineItem(id)
-      .subscribe(item => this.timelineItem = item);
+    // // Get Item through Service
+    // this.timelineItemListService.getTimelineItem(id)
+    //   .subscribe(item => this.timelineItem = item);
   }
 
   goBack(): void {

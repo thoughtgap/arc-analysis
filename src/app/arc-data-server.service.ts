@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
-import { filterObj } from './ArcTimelineFilter';
+import { filterObj, filterObjToHttpParams } from './ArcTimelineFilter';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +15,7 @@ export class ArcDataServerService {
   public baseUrlStd = 'http://localhost:3000';
   public baseUrl = 'http://localhost:3000';
   public filter: filterObj;
+  public status;
 
   constructor(
     private http: HttpClient,
@@ -22,6 +23,9 @@ export class ArcDataServerService {
     
       console.log("Service constructor!");
       this.filter = {};
+
+      this.status = {"pending": true};
+      this.loadFilesStatus();
   }
 
 
@@ -56,24 +60,70 @@ export class ArcDataServerService {
     //   "activityType":["cycling"]
     // };
 
-    return this.http.get<ArcTimelineItem[]>(`${this.baseUrl}/timelineItems/list`, { params: this.filter })
+    return this.http.get<ArcTimelineItem[]>(`${this.baseUrl}/timelineItems/list`, { params: filterObjToHttpParams(this.filter) })
       .pipe(
         tap(_ => this.log('fetched TimelineItems')),
         catchError(this.handleError<ArcTimelineItem[]>('getTimelineItemsNew()', []))
       );
   }
 
-
-
   getActivityTypes(): Observable<string[]> {
     // this.filter = {
     //   "weekday": ["Mo"],
     //   "activityType":["cycling"]
     // };
-    return this.http.get<ArcTimelineItem[]>(`${this.baseUrl}/activities/types`, { params: this.filter })
+    return this.http.get<string[]>(`${this.baseUrl}/activities/types`, { params: filterObjToHttpParams(this.filter) })
       .pipe(
         tap(_ => this.log('getActivityTypes()')),
-        catchError(this.handleError<ArcTimelineItem[]>('getActivityTypes()', []))
+        catchError(this.handleError<string[]>('getActivityTypes()', []))
+      );
+  }
+
+  loadFilesStatus() {
+    // Write to public variable this.status
+    this.http.get<Object>(`${this.baseUrl}/files/status`)
+      .pipe(
+        tap(_ => this.log('fetched /files/status')),
+        catchError(this.handleError<Object>('getFilesStatus', []))
+      )
+      .subscribe(json => {
+        this.status = json["response"]
+      });
+  }
+
+  /** Data reloading actions */
+  public filesExtract(): Observable<Object> {
+    console.log("filesExtract!");
+
+    return this.http.get<Object>(`${this.baseUrl}/files/extract`)
+      .pipe(
+        tap(_ => {
+          this.log('fetched /files/extract');
+          this.loadFilesStatus(); // Update status
+        }),
+        catchError(this.handleError<Object>('filesExtract', []))
+      );
+  }
+
+  filesJsonexportReload(): Observable<Object> {
+    return this.http.get<Object>(`${this.baseUrl}/files/jsonexport/reload`)
+      .pipe(
+        tap(_ => {
+          this.log('fetched /files/jsonexport/reload')
+          this.loadFilesStatus(); // Update status
+        }),
+        catchError(this.handleError<Object>('filesJsonexportReload', []))
+      );
+  }
+
+  classificationsReload(): Observable<Object> {
+    return this.http.get<Object>(`${this.baseUrl}/classifications/reload`)
+      .pipe(
+        tap(_ => {
+          this.log('fetched /classifications/reload')
+          this.loadFilesStatus(); // Update status
+        }),
+        catchError(this.handleError<Object>('classificationsReload', []))
       );
   }
 

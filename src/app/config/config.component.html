@@ -1,4 +1,48 @@
 <h1>Config</h1>
 <div>
-  arc-data-server URL: <input [(ngModel)]="baseUrl" /> <button (click)="setBaseUrl()">Set Base URL</button> <button (click)="resetBaseUrl()">Reset</button>
+  arc-data-server URL: <input [(ngModel)]="baseUrl" /> <button (click)="setBaseUrl()">Set Base URL</button> <button
+    (click)="resetBaseUrl()">Reset</button>
+</div>
+
+<h1>Status</h1>
+<button (click)="ArcDataServer.loadFilesStatus()">reload status</button>
+<div *ngIf="ArcDataServer.status">
+  <h3>Layer 1</h3>
+  <button (click)="filesExtract()">Read and extract to layer 2 now</button>
+  <ul>
+    <li>Layer 1 to Layer 2 extract: {{ArcDataServer.status.layer1.extract_timestamp || "never"}}</li>
+    <li>
+      Files at source:
+      {{ArcDataServer.status.layer1.fileCount.source.original | number}} original files,
+      {{ArcDataServer.status.layer1.fileCount.source.withoutDuplicates | number}} without duplicates
+    </li>
+    <li>
+      Files processed:
+      {{ArcDataServer.status.layer1.fileCount.processed.skipped | number}} skipped,
+      {{ArcDataServer.status.layer1.fileCount.processed.extracted | number}} extracted,
+      {{ArcDataServer.status.layer1.fileCount.processed.copied | number}} copied
+    </li>
+  </ul>
+
+  <h3>Layer 2</h3>
+  <button (click)="layer2Reload()">Reload now</button>
+  <p *ngIf="ArcDataServer.status.layer1.extract_timestamp > ArcDataServer.status.layer2.load_timestamp">Last extraction from Layer 1 to Layer 2 was after Layer 2 load, please reload Layer 2</p>
+  <ul>
+    <li>Loaded Layer 2 from disk: {{ArcDataServer.status.layer2.load_timestamp || "never"}}</li>
+    <li>
+      Files at source:
+      {{ArcDataServer.status.layer2.fileCount.jsonexports || "?"}} json exports,
+      {{ArcDataServer.status.layer2.fileCount.parsedTimelines || "?"}} parsed timelines
+    </li>
+  </ul>
+
+  <h3>Classifications</h3>
+  <button (click)="classificationsReload()">Reload now</button>
+  <ul>
+    <li>Loaded from config file: {{ArcDataServer.status.classifications.load_timestamp || "never"}}</li>
+    <li>
+      Classification count:
+      {{ArcDataServer.status.classifications.classifications || "?"}}
+    </li>
+  </ul>
 </div>

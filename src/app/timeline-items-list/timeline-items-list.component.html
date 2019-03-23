@@ -29,6 +29,7 @@
 
   <table border="1">
     <tr>
+      <th>itemId</th>
       <th>startDate</th>
       <th>endDate</th>
       <th>duration</th>
@@ -44,6 +45,7 @@
       <th>isVisit</th>
     </tr>
     <tr *ngFor="let timelineItem of localData">
+      <td>{{timelineItem.itemId}}</td>
       <td>{{timelineItem.startDate | date : "medium"}}</td>
       <td>{{timelineItem.endDate}}</td>
       <td>{{timelineItem.duration}}</td>

@@ -3,6 +3,7 @@ import { ArcTimelineItem } from '../ArcTimelineItem';
 import { ArcDataServerService } from '../arc-data-server.service'
 import { MessageService } from '../message.service';
 import { FormBuilder, FormGroup, FormArray, FormControl, ValidatorFn, ReactiveFormsModule } from '@angular/forms';
+import * as Highcharts from 'highcharts';
 
 @Component({
   selector: 'app-timeline-items-list',
@@ -16,6 +17,24 @@ export class TimelineItemsListComponent implements OnInit {
   public localData: ArcTimelineItem[];
 
   activityTypes: string[];
+
+
+  /* Highcharts */
+  Highcharts = Highcharts; // required
+  chartConstructor = 'chart'; // optional string, defaults to 'chart'
+  //chartOptions = { ... }; // required
+  chartOptions = {
+    series: [{
+      data: [1, 2, 3]
+    }]
+  };
+  //chartCallback = function (chart) { ... } // optional function, defaults to null
+  updateFlag = false; // optional boolean
+  oneToOneFlag = true; // optional boolean, defaults to false
+  runOutsideAngular = false; // optional boolean, defaults to false
+
+
+
 
 
   constructor(private timelineItemListService: ArcDataServerService

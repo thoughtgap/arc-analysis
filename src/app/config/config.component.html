@@ -5,7 +5,7 @@
 </div>
 
 <h1>Status</h1>
-<button (click)="ArcDataServer.loadFilesStatus()">reload status</button>
+<button (click)="ArcDataServer.loadFilesStatus()">reload status</button> Updated {{ArcDataServer.status.updated_timestamp}}
 <div *ngIf="ArcDataServer.status">
   <h3>Layer 1</h3>
   <button (click)="filesExtract()">Read and extract to layer 2 now</button>

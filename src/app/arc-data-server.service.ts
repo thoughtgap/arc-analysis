@@ -88,6 +88,7 @@ export class ArcDataServerService {
       )
       .subscribe(json => {
         this.status = json["response"]
+        this.status["updated_timestamp"] = new Date();
       });
   }
 

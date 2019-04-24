@@ -36,6 +36,39 @@ export class TimelineItemsListComponent implements OnInit {
 
 
 
+  // // For all demos:
+  // Highcharts: typeof Highcharts = Highcharts; // Highcharts, it's Highcharts
+
+  // // Demo #1
+  // optFromInputString: string = `
+  // {
+  //   "title": { "text": "Highcharts chart" },
+  //   "series": [{
+  //     "data": [11,2,3],
+  //     "zones": [{
+  //       "value": 7.2,
+  //       "dashStyle": "dot",
+  //       "color": "red"
+  //     }]
+  //   }, {
+  //     "data": [5,6,7]
+  //   }]
+  // }
+  // `;
+
+  // optFromInput: Highcharts.Options = JSON.parse(this.optFromInputString);
+  // updateFromInput: boolean = false;
+
+  // // Demonstrate chart instance
+  // logChartInstance(chart: Highcharts.Chart) {
+  //   console.log('Chart instance: ', chart);
+  // }
+
+  // updateInputChart() {
+  //   this.optFromInput = JSON.parse(this.optFromInputString);
+  // }
+
+
 
   constructor(private timelineItemListService: ArcDataServerService
     , private formBuilder: FormBuilder
@@ -68,6 +101,14 @@ export class TimelineItemsListComponent implements OnInit {
     this.getTimelineItemsNew();
 
     this.onChanges();
+  }
+
+  test() {
+    console.log(this.chartOptions.series[0].data);
+    alert("test");
+    this.chartOptions.series[0].data = [1,1,1];
+    console.log(this.chartOptions.series[0].data);
+
   }
 
   submit() {
